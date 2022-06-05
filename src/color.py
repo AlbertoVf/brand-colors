@@ -13,7 +13,6 @@ class Color:
     def __init__(self, name: str, colors: list):
         self.name = name
         self.colors = colors
-
         self.dest = f"{self.root}/{self.name}"
 
     def __str__(self):
@@ -32,23 +31,13 @@ class Color:
 
             img = Image.new("RGB", (200, 200), color)
             img.save(
-                f"{self.dest}/{self.name}_{color_hex}.png", "PNG")
-
-    def add_external_file(self, extension):
-        content = ""
-        with open(f"src/{self.root}.{self.extension}", "r") as f:
-            content = str(f.read())
-        return content
+                f"{self.dest}/{color_hex}.png", "PNG")
 
     def create_file(self):
-
-        name = self.name
-        colors = self.colors
-        html = ('<!DOCTYPE html><html lang="en">' +
-                f'<head><title>{name}</title><style>{add_external_file(extension="css")}</style></head>' +
-                '<body><article id="colores"></article>' +
-                f'<script> var colores = {colors};{add_external_file(extension="js")}</script></body></html>')
-
-        os.system(f"mkdir -p {self.root}")
-        with open(f"{self.dest}/{name}.html", "w") as file:
-            file.write(html)
+        os.system(f"mkdir -p {self.dest}")
+        with open('src/color_template.html', 'r') as f:
+            content = f.read()
+            content = content.replace('{ name }', self.name)
+            content = content.replace('{ colors }', str(self.colors))
+        with open(f"{self.dest}/{self.name}.html", "w") as file:
+            file.write(content)
