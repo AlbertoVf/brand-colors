@@ -1,7 +1,6 @@
 import requests
 import re
 from color import Color
-from create_files import create_file
 
 
 def read_file():
@@ -32,7 +31,8 @@ def main():
     colors = create_dict()
     for key, value in colors.items():
         c = Color(key[3:], value.split(' '))
-        create_file(c)
+        c.create_file()
+        c.create_png()
 
 
 if __name__ == '__main__':
