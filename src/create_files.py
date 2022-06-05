@@ -2,27 +2,22 @@ import os
 from color import Color
 
 
-def style_css():
-    return "canvas { width: 200px; height: 200px; margin: 2%; border: 2px solid #000; padding: 5px;}article { margin: 5% auto; width: 90%;}"
-
-
-def script_js():
-    return(
-        'for (var i=0;i < colores.length;i++) {' +
-        'var div=document.createElement("canvas");document.getElementById("colores").appendChild(div);' +
-        'var id="canvas-"+[i+1];div.setAttribute("id", id);var canvas=document.getElementById(id);' +
-        'var ctx=canvas.getContext("2d");ctx.fillStyle=colores[i];ctx.fillRect(0, 0, canvas.width, canvas.height);' +
-        'console.log("Canvas: " + (i+1) + " -  color: " + colores[i])}'
-    )
+def add_exterlan_file(extension):
+    content = ""
+    with open(f"src/brand-colors.{extension}", "r") as f:
+        content = str(f.read())
+    return content
 
 
 def set_html(color: Color):
     name = color.name
     colors = color.colors
+
     html = ('<!DOCTYPE html><html lang="en">' +
-            f'<head><title>{name}</title><style>{style_css()}</style></head>' +
+            f'<head><title>{name}</title><style>{add_exterlan_file("css")}</style></head>' +
             '<body><article id="colores"></article>' +
-            f'<script> var colores = {colors};{script_js()}</script></body></html>')
+            f'<script> var colores = {colors};{add_exterlan_file("js")}</script></body></html>')
+
     return html
 
 

@@ -12,6 +12,6 @@ compress_paletes:
 	@echo "Brand colors compressed"
 
 clean_output:
-  @echo "Cleaning output..."
-  rm -rf $(folder_output)
-  @echo "Output cleaned"
+	@echo "Cleaning output..."
+	rm -rf $(folder_output)
+	@echo "Output cleaned"
