@@ -1,8 +1,9 @@
 from PIL import Image
 import os
+import requests
 
 
-class Color:
+class Palette:
     root = "brand-colors"
 
     def __init__(self, line: str):
@@ -17,6 +18,15 @@ class Color:
 
     def __str__(self):
         return f"{self.name}: {self.colors}"
+
+    @staticmethod
+    def get_data():
+        os.system(f"mkdir -p {Palette.root}")
+        response = requests.get('http://brandcolors.net/download/?f=scss')
+        text = response.text
+        with open(f"{Palette.root}/brand-colors.scss", "w") as file:
+            file.write(text)
+        return text.split('\n')
 
     def create_png(self):
         for color_hex in self.colors:

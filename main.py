@@ -1,16 +1,10 @@
-import requests
 import re
-from color import Color
 
-
-def read_file():
-    url = 'http://brandcolors.net/download/?f=scss'
-    response = requests.get(url)
-    return response.text.split('\n')
+from src.palette import Palette
 
 
 def create_dict():
-    file = read_file()
+    file = Palette.get_data()
     colors = {}
 
     ex_name = re.compile(r'\$.*-?\d{0,2}:')
@@ -30,7 +24,7 @@ def create_dict():
 def main():
     colors = create_dict()
     for key, value in colors.items():
-        c = Color(key[3:], value.split(' '))
+        c = Palette(key[3:], value.split(' '))
         c.create_file()
         c.create_png()
 
