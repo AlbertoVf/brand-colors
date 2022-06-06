@@ -17,7 +17,8 @@ def create_dict():
         if name not in colors:
             colors[name] = color
         else:
-            colors[name] = f"{colors[name]} {color}"
+            if color not in colors[name]:
+                colors[name] = f"{colors[name]} {color}"
     return colors
 
 
