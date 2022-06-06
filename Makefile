@@ -1,16 +1,12 @@
 folder_output="brand-colors"
 
 generate_palete:
-	@echo "Generating palete..."
-	python src/main.py
-	@echo "Palete generated"
-
-download_palete:
-	@echo "Downloading palete..."
-	wget --output-document $(folder_output)/brandcolors.scss 'http://brandcolors.net/download/?f=scss'
-	@echo "Palete downloaded"
+	@echo "Generating palette..."
+	python main.py
+	@echo "Palette generated"
 
 compress_paletes:
-	@echo "Compressing palete..."
+	@echo "Compressing palette..."
 	zip -r $(folder_output).zip $(folder_output)
+	rm -rf $(folder_output)
 	@echo "Brand colors compressed"

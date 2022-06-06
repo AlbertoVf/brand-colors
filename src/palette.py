@@ -1,15 +1,11 @@
-from PIL import Image
 import os
+
 import requests
+from PIL import Image
 
 
 class Palette:
     root = "brand-colors"
-
-    def __init__(self, line: str):
-        self.name = line.split(':')[0]
-        self.colors = line.split(':')[1].split(' ')
-        self.dest = f"{self.root}/{self.name}"
 
     def __init__(self, name: str, colors: list):
         self.name = name
@@ -31,7 +27,7 @@ class Palette:
     def create_png(self):
         for color_hex in self.colors:
             if len(color_hex) != 7:
-                color_hex = f"#{color_hex[1]*2}{color_hex[2]*2}{color_hex[3]*2}"
+                color_hex = f"#{color_hex[1] * 2}{color_hex[2] * 2}{color_hex[3] * 2}"
 
             color = (
                 int(color_hex[1:3], 16),
@@ -40,8 +36,7 @@ class Palette:
             )
 
             img = Image.new("RGB", (200, 200), color)
-            img.save(
-                f"{self.dest}/{color_hex}.png", "PNG")
+            img.save(f"{self.dest}/{color_hex}.png", "PNG")
 
     def create_file(self):
         os.system(f"mkdir -p {self.dest}")
