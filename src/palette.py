@@ -1,6 +1,6 @@
 import os
 
-import requests
+import requests,json
 from PIL import Image
 
 
@@ -12,11 +12,11 @@ class Palette:
         self.colors = colors
         self.dest = f"{self.root}/{self.name}"
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.name}: {self.colors}"
 
     @staticmethod
-    def get_data():
+    def get_data() -> [str]:
         os.system(f"mkdir -p {Palette.root}")
         response = requests.get('http://brandcolors.net/download/?f=scss')
         text = response.text
@@ -46,3 +46,8 @@ class Palette:
             content = content.replace('{ colors }', str(self.colors))
         with open(f"{self.dest}/{self.name}.html", "w") as file:
             file.write(content)
+
+    def save_as_json(self):
+        myDict = {f"{self.name}-{i+1}": self.colors[i] for i in range(len(self.colors))}
+        with open(f"{self.dest}/{self.name}.json", "w") as file:
+            file.write(json.dumps(myDict, indent=2, sort_keys=True))

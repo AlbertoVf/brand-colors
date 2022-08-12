@@ -3,7 +3,7 @@ import re
 from src.palette import Palette
 
 
-def create_dict(file: [str] = Palette.get_data()):
+def create_dict(file: [str] = Palette.get_data()) -> dict:
     colors = {}
 
     ex_name = re.compile(r'\$.*-?\d{0,2}:')
@@ -25,10 +25,9 @@ def main():
     colors = create_dict()
     for key, value in colors.items():
         c = Palette(key, value.split(' '))
-
         c.create_file()
         c.create_png()
-
+        c.save_as_json()
 
 if __name__ == '__main__':
     main()
