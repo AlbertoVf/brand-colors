@@ -1,8 +1,0 @@
-# Brand Colors
-
-Generate a folder with html files that contain color palettes.
-
-
-```bash
-  curl -L -X GET 'http://brandcolors.net/download/?f=scss'
-```
