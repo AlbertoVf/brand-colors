@@ -1,6 +1,7 @@
+import json
 import os
 
-import requests,json
+import requests
 from PIL import Image
 
 
@@ -48,6 +49,6 @@ class Palette:
             file.write(content)
 
     def save_as_json(self):
-        myDict = {f"{self.name}-{i+1}": self.colors[i] for i in range(len(self.colors))}
+        myDict = {f"{self.name}-{i + 1}": self.colors[i] for i in range(len(self.colors))}
         with open(f"{self.dest}/{self.name}.json", "w") as file:
             file.write(json.dumps(myDict, indent=2, sort_keys=True))
