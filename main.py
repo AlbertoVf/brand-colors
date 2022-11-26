@@ -3,7 +3,15 @@ import re
 from src.palette import Palette
 
 
-def create_dict(file: [str] = Palette.get_data()) -> dict:
+def create_dict(file: list[str] = Palette.get_data()) -> dict:
+    """
+    It takes a list of strings, and returns a dictionary of colors
+
+    :param file: list[str] = Palette.get_data()
+    :type file: list[str]
+    :return: A dictionary with the color names as keys and the color values as values.
+    """
+
     colors = {}
 
     ex_name = re.compile(r'\$.*-?\d{0,2}:')
@@ -22,12 +30,18 @@ def create_dict(file: [str] = Palette.get_data()) -> dict:
 
 
 def main():
+    """
+    `main()` creates a dictionary of colors, creates a `Palette` object for each color,
+    creates a file for each color, creates a png for each color,
+    and saves each color as a json file.
+    """
     colors = create_dict()
     for key, value in colors.items():
-        c = Palette(key, value.split(' '))
-        c.create_file()
-        c.create_png()
-        c.save_as_json()
+        color = Palette(key, value.split(' '))
+        color.create_file()
+        color.create_png()
+        color.save_as_json()
+
 
 if __name__ == '__main__':
     main()
