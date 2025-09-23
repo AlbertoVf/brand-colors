@@ -22,7 +22,8 @@ class Palette:
     @staticmethod
     def get_data() -> list[str]:
         """
-        It downloads a file from the internet, saves it, and returns the contents of the file
+        It downloads a file from the internet, saves it,
+        and returns the contents of the file
         as a list of strings
         :return: A list of strings.
 
@@ -31,13 +32,14 @@ class Palette:
         response = requests.get(
             'http://brandcolors.net/download/?f=scss', timeout=10)
         text = response.text
-        with open(f"{Palette.root}/brand-colors.scss", "w", encoding="utf-8") as file:
+        with open(f"{Palette.root}/brand-colors.scss", "w") as file:
             file.write(text)
         return text.split('\n')
 
     def create_png(self):
         """
-        It takes a hex color code, converts it to RGB, creates a 200x200 image with that color,
+        It takes a hex color code, converts it to RGB, creates a
+        200x200 image with that color,
         and saves it to a file
         """
         for color_hex in self.colors:
@@ -55,20 +57,22 @@ class Palette:
 
     def create_file(self):
         """
-        It reads the template file, replaces the placeholders with the values of the object's
+        It reads the template file, replaces the placeholders with
+        the values of the object's
         attributes, and writes the result to a new file
         """
         os.system(f"mkdir -p {self.dest}")
-        with open('src/color_template.html', 'r', encoding="utf-8") as file:
+        with open('src/color_template.html', 'r') as file:
             content = file.read()
             content = content.replace('{ name }', self.name)
             content = content.replace('{ colors }', str(self.colors))
-        with open(f"{self.dest}/{self.name}.html", "w", encoding="utf-8") as file:
+        with open(f"{self.dest}/{self.name}.html", "w") as file:
             file.write(content)
 
     def save_as_json(self):
         """
-        We create a dictionary with the name of the color as the key and the hex value as the value.
+        We create a dictionary with the name of the color as the key
+        and the hex value as the value.
 
         We then write the dictionary to a json file.
 

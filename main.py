@@ -9,7 +9,8 @@ def create_dict(file: list[str] = Palette.get_data()) -> dict:
 
     :param file: list[str] = Palette.get_data()
     :type file: list[str]
-    :return: A dictionary with the color names as keys and the color values as values.
+    :return: A dictionary with the color names as keys
+    and the color values as values.
     """
 
     colors = {}
@@ -31,7 +32,7 @@ def create_dict(file: list[str] = Palette.get_data()) -> dict:
 
 def main():
     """
-    `main()` creates a dictionary of colors, creates a `Palette` object for each color,
+    creates a dictionary of colors, creates a `Palette` object for each color,
     creates a file for each color, creates a png for each color,
     and saves each color as a json file.
     """
